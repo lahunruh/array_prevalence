@@ -183,7 +183,7 @@ if __name__ == '__main__':
     else:
         Se = args.sensitivity
     Sp=args.specificity
-    data_df = pd.read_csv(args.i,header=None)
+    data_df = pd.read_csv(args.input,header=None)
     samples = data_df.shape[0]
     
     data = []
