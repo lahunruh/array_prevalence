@@ -188,7 +188,7 @@ if __name__ == '__main__':
     
     data = []
     for i in range(data_df.shape[0]):
-        data.append((data_df.iloc[0,i],data_df.iloc[0,i]))
+        data.append((data_df.iloc[0,i],data_df.iloc[1,i]))
 
     all_results = {}
     store = {}
