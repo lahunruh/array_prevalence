@@ -210,7 +210,7 @@ if __name__ == '__main__':
         sys.stdout.flush()
         posterior_df.to_csv(args.outpath, index=False)
     else:
-        p = est_preval(data,n,store,Se,Sp, all_counts)
+        p = est_preval_MLE(data,n,store,Se,Sp, all_counts)
         print('Prevalence is estimated at',p)
         sys.stdout.flush()
         
