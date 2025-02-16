@@ -35,7 +35,8 @@ def get_count(i,j,d):
                 c2 = comb(k, k) * comb(l, l - 1) * count[k, l - 1]
             else:
                 c2 = 0
-            count[k,l] = comb(k*l,d) - sum(comb(k,a) * comb(l,b) * count[a,b] for a in range(k+1) for b in range(l+1) if a < k or b < l) #- c1 - c2
+            count[k,l] = comb(k*l,d) - sum(comb(k,a) * comb(l,b) * count[a,b] 
+                                           for a in range(k+1) for b in range(l+1) if a < k or b < l) #- c1 - c2
 
     return count[i,j]
 
@@ -55,7 +56,14 @@ def est_preval(data,n, store,Se,Sp,all_counts):
         precomp[p] = []
         for i in range(len(data)):
             if (data[i][0],data[i][1],p) not in store:
-                ll = sum(get_ll(data[i][0],data[i][1],a,b,e1,f1,e2,f2,n,d,Se,Sp,all_counts) * binom.pmf(d,n,p) for d in range(0,n+1) for a in range(0,min(d+1,int(np.sqrt(n)+1))) for b in range(0,min(d+1,int(np.sqrt(n)+1))) for e1 in range(0,int(np.sqrt(n)) - a + 1) for f1 in range(0,int(np.sqrt(n)) - b + 1) for e2 in range(0,a+1) for f2 in range(0,b+1) if (e1 - e2) == (data[i][0] - a) if (f1 - f2) == (data[i][1] - b) if a*b >= d)
+                ll = sum(get_ll(data[i][0],data[i][1],a,b,e1,f1,e2,f2,n,d,Se,Sp,all_counts) * 
+                         binom.pmf(d,n,p) for d in range(0,n+1) for a in range(0,min(d+1,int(np.sqrt(n)+1))) 
+                                                                for b in range(0,min(d+1,int(np.sqrt(n)+1))) 
+                                                                for e1 in range(0,int(np.sqrt(n)) - a + 1) 
+                                                                for f1 in range(0,int(np.sqrt(n)) - b + 1)
+                                                                for e2 in range(0,a+1) for f2 in range(0,b+1) 
+                                                                if (e1 - e2) == (data[i][0] - a) 
+                                                                if (f1 - f2) == (data[i][1] - b) if a*b >= d)
                 store[(data[i][0],data[i][1],p)] = ll
                 store[(data[i][1],data[i][0],p)] = ll
             else:
@@ -94,7 +102,17 @@ def est_preval_MLE(data,n, store,Se,Sp,all_counts):
     precomp = []
     for i in range(len(data)):
         if (data[i][0],data[i][1],p) not in store:
-            ll = sum(get_ll(data[i][0],data[i][1],a,b,e1,f1,e2,f2,n,d,Se,Sp,all_counts) * binom.pmf(d,n,p) for d in range(0,n+1) for a in range(0,min(d+1,int(np.sqrt(n)+1))) for b in range(0,min(d+1,int(np.sqrt(n)+1))) for e1 in range(0,int(np.sqrt(n)) - a + 1) for f1 in range(0,int(np.sqrt(n)) - b + 1) for e2 in range(0,a+1) for f2 in range(0,b+1) if (e1 - e2) == (data[i][0] - a) if (f1 - f2) == (data[i][1] - b) if a*b >= d)
+            ll = sum(get_ll(data[i][0],data[i][1],a,b,e1,f1,e2,f2,n,d,Se,Sp,all_counts) * binom.pmf(d,n,p) 
+                                                                            for d in range(0,n+1) 
+                                                                            for a in range(0,min(d+1,int(np.sqrt(n)+1))) 
+                                                                            for b in range(0,min(d+1,int(np.sqrt(n)+1))) 
+                                                                            for e1 in range(0,int(np.sqrt(n)) - a + 1) 
+                                                                            for f1 in range(0,int(np.sqrt(n)) - b + 1) 
+                                                                            for e2 in range(0,a+1) 
+                                                                            for f2 in range(0,b+1) 
+                                                                            if (e1 - e2) == (data[i][0] - a) 
+                                                                            if (f1 - f2) == (data[i][1] - b) 
+                                                                            if a*b >= d)
             store[(data[i][0],data[i][1],p)] = ll
             store[(data[i][1],data[i][0],p)] = ll
         else:
@@ -110,7 +128,17 @@ def est_preval_MLE(data,n, store,Se,Sp,all_counts):
             precomp = []
             for i in range(len(data)):
                 if (data[i][0],data[i][1],p) not in store:
-                    ll = sum(get_ll(data[i][0],data[i][1],a,b,e1,f1,e2,f2,n,d,Se,Sp,all_counts) * binom.pmf(d,n,p) for d in range(0,n+1) for a in range(0,min(d+1,int(np.sqrt(n)+1))) for b in range(0,min(d+1,int(np.sqrt(n)+1))) for e1 in range(0,int(np.sqrt(n)) - a + 1) for f1 in range(0,int(np.sqrt(n)) - b + 1) for e2 in range(0,a+1) for f2 in range(0,b+1) if (e1 - e2) == (data[i][0] - a) if (f1 - f2) == (data[i][1] - b) if a*b >= d)
+                    ll = sum(get_ll(data[i][0],data[i][1],a,b,e1,f1,e2,f2,n,d,Se,Sp,all_counts) * binom.pmf(d,n,p) 
+                                                                                    for d in range(0,n+1) 
+                                                                                    for a in range(0,min(d+1,int(np.sqrt(n)+1))) 
+                                                                                    for b in range(0,min(d+1,int(np.sqrt(n)+1))) 
+                                                                                    for e1 in range(0,int(np.sqrt(n)) - a + 1) 
+                                                                                    for f1 in range(0,int(np.sqrt(n)) - b + 1) 
+                                                                                    for e2 in range(0,a+1) 
+                                                                                    for f2 in range(0,b+1) 
+                                                                                    if (e1 - e2) == (data[i][0] - a) 
+                                                                                    if (f1 - f2) == (data[i][1] - b) 
+                                                                                    if a*b >= d)
                     store[(data[i][0],data[i][1],p)] = ll
                     store[(data[i][1],data[i][0],p)] = ll
                 else:
@@ -123,7 +151,17 @@ def est_preval_MLE(data,n, store,Se,Sp,all_counts):
         precomp = []
         for i in range(len(data)):
             if (data[i][0],data[i][1],p) not in store:
-                ll = sum(get_ll(data[i][0],data[i][1],a,b,e1,f1,e2,f2,n,d,Se,Sp,all_counts) * binom.pmf(d,n,p) for d in range(0,n+1) for a in range(0,min(d+1,int(np.sqrt(n)+1))) for b in range(0,min(d+1,int(np.sqrt(n)+1))) for e1 in range(0,int(np.sqrt(n)) - a + 1) for f1 in range(0,int(np.sqrt(n)) - b + 1) for e2 in range(0,a+1) for f2 in range(0,b+1) if (e1 - e2) == (data[i][0] - a) if (f1 - f2) == (data[i][1] - b) if a*b >= d)
+                ll = sum(get_ll(data[i][0],data[i][1],a,b,e1,f1,e2,f2,n,d,Se,Sp,all_counts) * binom.pmf(d,n,p) 
+                                                                                for d in range(0,n+1) 
+                                                                                for a in range(0,min(d+1,int(np.sqrt(n)+1)))
+                                                                                for b in range(0,min(d+1,int(np.sqrt(n)+1))) 
+                                                                                for e1 in range(0,int(np.sqrt(n)) - a + 1)
+                                                                                for f1 in range(0,int(np.sqrt(n)) - b + 1) 
+                                                                                for e2 in range(0,a+1) 
+                                                                                for f2 in range(0,b+1) 
+                                                                                if (e1 - e2) == (data[i][0] - a) 
+                                                                                if (f1 - f2) == (data[i][1] - b) 
+                                                                                if a*b >= d)
                 store[(data[i][0],data[i][1],p)] = ll
                 store[(data[i][1],data[i][0],p)] = ll
             else:
@@ -166,12 +204,18 @@ if __name__ == '__main__':
         -p  Flag that when provided enables full posterior estimation (default off, computing only MLE prevalence estimate)
     '''
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', dest='input', type=str, required=True, help='Path to data.')
-    parser.add_argument('-n', dest='n',type=int,required=True, help='Number of samples in array testing design.')
-    parser.add_argument('-s', dest='sensitivity',type=float, default=0, required=False, help='Expected sensitivity (default = 0.99 for group size of 8 or less, and 0.95 for more than 8, i.e. n <= 64 and n > 64 respectively)')
-    parser.add_argument('-z', dest='specificity',type=float, default=0.99, required=False, help='Expected specificity (default = 0.99)')
-    parser.add_argument('-o', dest='outpath',type=str, default='./',required=False, help='Path for writing posterior csv')
-    parser.add_argument('-p', dest='posterior',action='store_true',help='If provided conducts full posterior estimation')
+    parser.add_argument('-i', dest='input', type=str, required=True, 
+                        help='Path to data.')
+    parser.add_argument('-n', dest='n',type=int,required=True, 
+                        help='Number of samples in array testing design.')
+    parser.add_argument('-s', dest='sensitivity',type=float, default=0, required=False, 
+                        help='Expected sensitivity (default = 0.99 for group size of 8 or less, and 0.95 for more than 8, i.e. n <= 64 and n > 64 respectively)')
+    parser.add_argument('-z', dest='specificity',type=float, default=0.99, required=False, 
+                        help='Expected specificity (default = 0.99)')
+    parser.add_argument('-o', dest='outpath',type=str, default='./',required=False, 
+                        help='Path for writing posterior csv')
+    parser.add_argument('-p', dest='posterior',action='store_true',
+                        help='If provided conducts full posterior estimation')
     parser.set_defaults(append=False)
     args = parser.parse_args()
     n = args.n
